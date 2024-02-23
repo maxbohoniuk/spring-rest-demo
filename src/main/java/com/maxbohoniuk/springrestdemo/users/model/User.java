@@ -1,5 +1,6 @@
 package com.maxbohoniuk.springrestdemo.users.model;
 
+import com.maxbohoniuk.springrestdemo.groups.model.Group;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -7,9 +8,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -33,6 +33,9 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     private String password;
+
+    @ManyToMany(mappedBy = "members")
+    private List<Group> groups;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -77,6 +80,7 @@ public class User implements UserDetails {
                 .id(id)
                 .email(email)
                 .name(name)
+                .groups(Optional.ofNullable(groups).orElse(List.of()).stream().map(Group::toResponseDto).collect(Collectors.toSet()))
                 .createdAt(createdAt)
                 .build();
     }

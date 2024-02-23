@@ -2,6 +2,7 @@ package com.maxbohoniuk.springrestdemo.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +17,8 @@ public class SecurityConfig {
         return httpSecurity.cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                    requests -> requests.anyRequest().authenticated()
+                    requests -> requests.requestMatchers(HttpMethod.POST, "/users").permitAll()
+                            .anyRequest().authenticated()
                 ).formLogin(httpSecurityFormLoginConfigurer -> {})
                 .httpBasic(httpSecurityHttpBasicConfigurer -> {})
                 .build();
