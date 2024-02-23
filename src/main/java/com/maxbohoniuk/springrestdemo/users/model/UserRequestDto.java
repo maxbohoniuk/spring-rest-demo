@@ -1,15 +1,28 @@
-package com.maxbohoniuk.springkotlindemo.users.model
+package com.maxbohoniuk.springrestdemo.users.model;
 
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
+import lombok.Getter;
 
-data class UserRequestDto(
+@Getter
+@Builder
+public class UserRequestDto {
     @NotBlank
-    val name: String,
+    private final String name;
+
     @Email
-    val email: String,
+    private final String email;
+
     @NotBlank
-    val password: String,
-) {
-    fun toEntity(): User = User(id = null, name = name, email = email, password = password)
+    private final String password;
+
+    public User toEntity() {
+        return User.builder()
+                .name(name)
+                .email(email)
+                .password(password)
+                .build();
+    }
 }
+

@@ -1,20 +1,32 @@
-package com.maxbohoniuk.springkotlindemo.posts
+package com.maxbohoniuk.springrestdemo.posts;
 
-import com.maxbohoniuk.springkotlindemo.posts.model.PostDto
-import com.maxbohoniuk.springkotlindemo.posts.service.PostService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+
+import com.maxbohoniuk.springrestdemo.posts.model.Post;
+import com.maxbohoniuk.springrestdemo.posts.model.PostDto;
+import com.maxbohoniuk.springrestdemo.posts.service.PostService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/posts")
-class PostController(private val postService: PostService) {
+@RequiredArgsConstructor
+public class PostController {
+
+    private final PostService postService;
 
     @GetMapping
-    fun getAllPosts(): List<PostDto> = postService.getAllPosts().map { PostDto.fromEntity(it) }
+    public List<PostDto> getAllPosts() {
+        return postService.getAllPosts().stream()
+                .map(Post::toDto)
+                .collect(Collectors.toList());
+    }
 
     @PostMapping
-    fun addPost(@RequestBody postDto: PostDto): PostDto = PostDto.fromEntity(postService.addPost(postDto.toEntity()))
+    public PostDto addPost(@RequestBody PostDto postDto) {
+        return postService.addPost(postDto.toEntity()).toDto();
+    }
 }
+

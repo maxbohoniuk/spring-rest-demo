@@ -1,19 +1,26 @@
-package com.maxbohoniuk.springkotlindemo.posts.model
+package com.maxbohoniuk.springrestdemo.posts.model;
 
-import com.maxbohoniuk.springkotlindemo.users.model.UserResponseDto
-import java.util.UUID
+import com.maxbohoniuk.springrestdemo.users.model.UserResponseDto;
+import lombok.*;
 
-data class PostDto(
-    val id: UUID?,
-    val title: String,
-    val content: String?,
-    val author: UserResponseDto?
-) {
-    fun toEntity() = Post(null, title, content)
+import java.util.UUID;
 
-    companion object {
-        fun fromEntity(postEntity: Post) =
-            PostDto(postEntity.id, postEntity.title, postEntity.content, UserResponseDto(postEntity.author))
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+public class PostDto {
+    private UUID id;
+    private String title;
+    private String content;
+    private UserResponseDto author;
+
+    public Post toEntity() {
+        return Post.builder()
+                .title(title)
+                .content(content)
+                .build();
     }
-
 }
+

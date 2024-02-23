@@ -1,13 +1,17 @@
-package com.maxbohoniuk.springkotlindemo.users.model
+package com.maxbohoniuk.springrestdemo.users.model;
 
-import java.time.LocalDateTime
-import java.util.*
+import lombok.Builder;
+import lombok.Getter;
 
-data class UserResponseDto(
-    val id: UUID,
-    val name: String,
-    val email: String,
-    val createdAt: LocalDateTime?
-) {
-    constructor(user: User) : this(user.id!!, user.name, user.email, user.createdAt)
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Getter
+@Builder
+public class UserResponseDto {
+    private UUID id;
+    private String name;
+    private String email;
+    private LocalDateTime createdAt;
 }
+

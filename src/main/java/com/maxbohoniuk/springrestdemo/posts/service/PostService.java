@@ -1,18 +1,27 @@
-package com.maxbohoniuk.springkotlindemo.posts.service
+package com.maxbohoniuk.springrestdemo.posts.service;
 
-import com.maxbohoniuk.springkotlindemo.posts.model.Post
-import com.maxbohoniuk.springkotlindemo.posts.repo.PostRepository
-import com.maxbohoniuk.springkotlindemo.users.service.UserService
-import org.springframework.stereotype.Service
+import com.maxbohoniuk.springrestdemo.posts.model.Post;
+import com.maxbohoniuk.springrestdemo.posts.repo.PostRepository;
+import com.maxbohoniuk.springrestdemo.users.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
-class PostService(private val postRepository: PostRepository, private val userService: UserService) {
+@RequiredArgsConstructor
+public class PostService {
 
-    fun getAllPosts(): List<Post> = postRepository.findAll()
+    private final PostRepository postRepository;
+    private final UserService userService;
 
-    fun addPost(post: Post): Post {
-        post.author = userService.getLoggedInUser()
-        return postRepository.save(post)
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
     }
 
+    public Post addPost(Post post) {
+        post.setAuthor(userService.getLoggedInUser());
+        return postRepository.save(post);
+    }
 }
+
