@@ -1,19 +1,18 @@
 package com.maxbohoniuk.springrestdemo.posts.model;
 
+import com.maxbohoniuk.springrestdemo.groups.model.Group;
 import com.maxbohoniuk.springrestdemo.users.model.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "posts")
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -30,6 +29,13 @@ public class Post {
     @JoinColumn(name = "author_id")
     @ManyToOne
     private User author;
+
+    @JoinColumn(name = "group_id")
+    @ManyToOne
+    private Group group;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
 
     public PostDto toDto() {
         return PostDto.builder()

@@ -1,6 +1,5 @@
 package com.maxbohoniuk.springrestdemo.users.model;
 
-import com.maxbohoniuk.springrestdemo.groups.model.GroupResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,7 +13,7 @@ public class UserResponseDto {
     private UUID id;
     private String name;
     private String email;
-    private Set<GroupResponseDto> groups;
+    private Set<String> groups;
     private LocalDateTime createdAt;
 }
 

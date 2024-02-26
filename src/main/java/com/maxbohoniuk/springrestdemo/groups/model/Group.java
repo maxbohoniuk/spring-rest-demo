@@ -1,5 +1,6 @@
 package com.maxbohoniuk.springrestdemo.groups.model;
 
+import com.maxbohoniuk.springrestdemo.posts.model.Post;
 import com.maxbohoniuk.springrestdemo.users.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -43,6 +45,10 @@ public class Group {
     @Column(nullable = false)
     @Builder.Default
     private Integer membersCount = 1;
+
+    @JoinColumn(name = "group_id", updatable = false)
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Post> posts;
 
     @CreatedDate
     private LocalDateTime createdAt;

@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -18,15 +20,17 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public List<PostDto> getAllPosts() {
-        return postService.getAllPosts().stream()
+    public List<PostDto> getAllPosts(@RequestParam(name = "group", required = false) Optional<UUID> groupId,
+                                     @RequestParam(name = "user", required = false) Optional<UUID> userId) {
+        return postService.getAllPosts(groupId, userId).stream()
                 .map(Post::toDto)
                 .collect(Collectors.toList());
     }
 
     @PostMapping
-    public PostDto addPost(@RequestBody PostDto postDto) {
-        return postService.addPost(postDto.toEntity()).toDto();
+    public PostDto addPost(@RequestBody PostDto postDto,
+                           @RequestParam(name = "group", required = false) Optional<UUID> groupId) {
+        return postService.addPost(postDto.toEntity(), groupId).toDto();
     }
 }
 

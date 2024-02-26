@@ -80,7 +80,7 @@ public class User implements UserDetails {
                 .id(id)
                 .email(email)
                 .name(name)
-                .groups(Optional.ofNullable(groups).orElse(List.of()).stream().map(Group::toResponseDto).collect(Collectors.toSet()))
+                .groups(Optional.ofNullable(groups).orElse(List.of()).stream().map(Group::getName).collect(Collectors.toSet()))
                 .createdAt(createdAt)
                 .build();
     }
