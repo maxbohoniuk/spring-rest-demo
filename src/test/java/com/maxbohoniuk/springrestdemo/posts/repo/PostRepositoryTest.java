@@ -7,13 +7,19 @@ import com.maxbohoniuk.springrestdemo.posts.model.Post;
 import com.maxbohoniuk.springrestdemo.users.model.User;
 import com.maxbohoniuk.springrestdemo.users.repo.UserRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 
 @DataJpaTest
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class PostRepositoryTest {
 
     @Autowired
@@ -27,7 +33,7 @@ class PostRepositoryTest {
 
 
     @Test
-    void shouldGetPostByAuthorOrGroup() {
+    void should_get_post_by_author_or_group() {
         //given
         User user = userRepository.save(TestUtil.buildUser("a@x.com"));
         Group group = groupRepository.save(TestUtil.buildGroup(user));

@@ -7,6 +7,8 @@ import com.maxbohoniuk.springrestdemo.users.repo.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -18,6 +20,7 @@ import java.util.Set;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class GroupRepositoryTest {
 
     @Autowired
@@ -30,7 +33,7 @@ class GroupRepositoryTest {
     private EntityManager entityManager;
 
     @Test
-    void shouldFindByIdAndMembersContaining() {
+    void should_find_by_id_and_members_containing() {
         //given
         User member = userRepository.save(TestUtil.buildUser("x@x.com"));
         Group savedGroup = groupRepository.save(
@@ -50,7 +53,7 @@ class GroupRepositoryTest {
     }
 
     @Test
-    void shouldNotFindByIdAndMembersContaining() {
+    void should_not_find_by_id_and_members_containing() {
         //given
         User member = userRepository.save(TestUtil.buildUser("x@x.com"));
         Group savedGroup = groupRepository.save(
@@ -69,7 +72,7 @@ class GroupRepositoryTest {
     }
 
     @Test
-    void shouldIncrementMembersCount() {
+    void should_increment_members_count() {
         //given
         User member = userRepository.save(TestUtil.buildUser("x@x.com"));
         Group savedGroup = groupRepository.save(

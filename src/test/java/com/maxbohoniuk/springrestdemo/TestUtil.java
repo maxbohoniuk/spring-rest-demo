@@ -1,10 +1,23 @@
 package com.maxbohoniuk.springrestdemo;
 
 import com.maxbohoniuk.springrestdemo.groups.model.Group;
+import com.maxbohoniuk.springrestdemo.groups.model.GroupRequestDto;
 import com.maxbohoniuk.springrestdemo.posts.model.Post;
 import com.maxbohoniuk.springrestdemo.users.model.User;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
 public class TestUtil {
+
+    public static <T> List<T> buildObjectsList(int listSize, Supplier<T> generator) {
+        List<T> res = new ArrayList<>();
+        for (int i = 0; i < listSize; i++) {
+            res.add(generator.get());
+        }
+        return res;
+    }
 
     public static User buildUser(String email) {
         return User.builder()
@@ -19,6 +32,10 @@ public class TestUtil {
                 .name("Group")
                 .creator(creator)
                 .build();
+    }
+
+    public static GroupRequestDto buildGroupRequestDto() {
+        return new GroupRequestDto("Group");
     }
 
     public static Post buildPost() {
