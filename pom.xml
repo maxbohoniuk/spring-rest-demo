@@ -104,6 +104,12 @@
                                     </limits>
                                 </rule>
                             </rules>
+                            <excludes>
+                                <exclude>**/InitialDataLoader.*</exclude>
+                                <exclude>**/SpringRestDemoApplication.*</exclude>
+                                <exclude>**/config/*</exclude>
+                                <exclude>**/model/*</exclude>
+                            </excludes>
                         </configuration>
                     </execution>
                 </executions>
