@@ -23,7 +23,7 @@ public class TestUtil {
         return User.builder()
                 .name("Name")
                 .email(email)
-                .password("$2a$12$smqNzEbf4nekvBNDIXJ5T.F3Uh0LNRwAIC1YgVmwpisePR2SacEEa")
+                .password("$2a$12$smqNzEbf4nekvBNDIXJ5T.F3Uh0LNRwAIC1YgVmwpisePR2SacEEa") //pass
                 .build();
     }
 

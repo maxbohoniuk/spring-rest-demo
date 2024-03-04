@@ -5,6 +5,7 @@ import com.maxbohoniuk.springrestdemo.posts.model.Post;
 import com.maxbohoniuk.springrestdemo.posts.model.PostDto;
 import com.maxbohoniuk.springrestdemo.posts.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class PostController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public PostDto addPost(@RequestBody PostDto postDto,
                            @RequestParam(name = "group", required = false) Optional<UUID> groupId) {
         return postService.addPost(postDto.toEntity(), groupId).toDto();

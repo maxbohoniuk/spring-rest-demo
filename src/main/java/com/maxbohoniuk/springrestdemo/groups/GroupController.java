@@ -4,7 +4,9 @@ import com.maxbohoniuk.springrestdemo.groups.model.Group;
 import com.maxbohoniuk.springrestdemo.groups.model.GroupRequestDto;
 import com.maxbohoniuk.springrestdemo.groups.model.GroupResponseDto;
 import com.maxbohoniuk.springrestdemo.groups.service.GroupService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +31,8 @@ public class GroupController {
     }
 
     @PostMapping
-    public GroupResponseDto createGroup(@RequestBody GroupRequestDto groupRequestDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public GroupResponseDto createGroup(@RequestBody @Valid GroupRequestDto groupRequestDto) {
         return groupService.createGroup(groupRequestDto).toResponseDto();
     }
 

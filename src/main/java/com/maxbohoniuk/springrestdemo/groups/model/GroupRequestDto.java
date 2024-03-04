@@ -4,9 +4,11 @@ import com.maxbohoniuk.springrestdemo.users.model.User;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class GroupRequestDto {
 
     @NotBlank
